@@ -1,12 +1,13 @@
 #include "levelswindow.h"
 #include "choicebutton.h"
 #include <QPainter>
+#include <QTimer>
 
 LevelsWindow::LevelsWindow(QWidget *parent)
     : QMainWindow{parent}
 {
 
-    this->setWindowIcon(QPixmap(":/user/rsc/user/user_stand.png"));
+    this->setWindowIcon(QPixmap(":/user/rsc/User/Idle1.png"));
     this->setFixedSize(64*18,64*9);
     this->setWindowTitle("choose level");
 
@@ -21,7 +22,7 @@ LevelsWindow::LevelsWindow(QWidget *parent)
 
     ChoiceButton * settingsBtn = new ChoiceButton(":/icon/rsc/Menu/Buttons/Settings.png");
     settingsBtn->setParent(this);
-    settingsBtn->move(64*16+16,64*8+32);
+    settingsBtn->move(64*15+16,64*8+32);
     connect(settingsBtn,&ChoiceButton::clicked,[=](){
         qDebug()<<"settingsBtn clicked";
 
@@ -55,8 +56,26 @@ LevelsWindow::LevelsWindow(QWidget *parent)
             level->move_down();
             level->move_up();
 
+            playLevel = new PlayScene(i+1);
+
+            QTimer::singleShot(360,this,[=](){
+                this->hide();
+                this->playLevel->show();
+            });
+
+            connect(playLevel,&PlayScene::return_to_levels,this,[=](){
+                QTimer::singleShot(360,this,[=](){
+                    playLevel->close();
+                    this->show();
+
+                    delete this->playLevel->m_user;
+                    delete this->playLevel;
+                    this->playLevel = nullptr;
+                });
+            });
         });
     }
+
 
 
 }

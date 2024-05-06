@@ -1,7 +1,7 @@
 #ifndef CHOICEBUTTON_H
 #define CHOICEBUTTON_H
 
-#include <QPushButton>>
+#include <QPushButton>
 
 class ChoiceButton : public QPushButton
 {

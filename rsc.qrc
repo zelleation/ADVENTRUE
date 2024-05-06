@@ -1,21 +1,71 @@
 <RCC>
     <qresource prefix="/user">
-        <file>rsc/user/user_down_1.png</file>
-        <file>rsc/user/user_down_2.png</file>
-        <file>rsc/user/user_down_3.png</file>
-        <file>rsc/user/user_jump.png</file>
-        <file>rsc/user/user_run_1.png</file>
-        <file>rsc/user/user_run_2.png</file>
-        <file>rsc/user/user_run_3.png</file>
-        <file>rsc/user/user_run_4.png</file>
-        <file>rsc/user/user_run_5.png</file>
-        <file>rsc/user/user_run_6.png</file>
-        <file>rsc/user/user_run_7.png</file>
-        <file>rsc/user/user_run_8.png</file>
-        <file>rsc/user/user_run_9.png</file>
-        <file>rsc/user/user_run_10.png</file>
-        <file>rsc/user/user_run_11.png</file>
-        <file>rsc/user/user_stand.png</file>
+        <file>rsc/User/DoubleJump.png</file>
+        <file>rsc/User/Fall.png</file>
+        <file>rsc/User/Hit1.png</file>
+        <file>rsc/User/Hit2.png</file>
+        <file>rsc/User/Hit3.png</file>
+        <file>rsc/User/Hit4.png</file>
+        <file>rsc/User/Hit5.png</file>
+        <file>rsc/User/Hit6.png</file>
+        <file>rsc/User/Hit7.png</file>
+        <file>rsc/User/Idle1.png</file>
+        <file>rsc/User/Idle2.png</file>
+        <file>rsc/User/Idle3.png</file>
+        <file>rsc/User/Idle4.png</file>
+        <file>rsc/User/Idle5.png</file>
+        <file>rsc/User/Idle6.png</file>
+        <file>rsc/User/Idle7.png</file>
+        <file>rsc/User/Idle8.png</file>
+        <file>rsc/User/Idle9.png</file>
+        <file>rsc/User/Idle10.png</file>
+        <file>rsc/User/Idle11.png</file>
+        <file>rsc/User/Jump.png</file>
+        <file>rsc/User/Run1.png</file>
+        <file>rsc/User/Run2.png</file>
+        <file>rsc/User/Run3.png</file>
+        <file>rsc/User/Run4.png</file>
+        <file>rsc/User/Run5.png</file>
+        <file>rsc/User/Run6.png</file>
+        <file>rsc/User/Run7.png</file>
+        <file>rsc/User/Run8.png</file>
+        <file>rsc/User/Run9.png</file>
+        <file>rsc/User/Run10.png</file>
+        <file>rsc/User/Run11.png</file>
+        <file>rsc/User/Run12.png</file>
+        <file>rsc/User/UserAttack.png</file>
+        <file>rsc/User/HitL1.png</file>
+        <file>rsc/User/HitL2.png</file>
+        <file>rsc/User/HitL3.png</file>
+        <file>rsc/User/HitL4.png</file>
+        <file>rsc/User/HitL5.png</file>
+        <file>rsc/User/HitL6.png</file>
+        <file>rsc/User/HitL7.png</file>
+        <file>rsc/User/FallL.png</file>
+        <file>rsc/User/IdleL1.png</file>
+        <file>rsc/User/IdleL2.png</file>
+        <file>rsc/User/IdleL3.png</file>
+        <file>rsc/User/IdleL4.png</file>
+        <file>rsc/User/IdleL5.png</file>
+        <file>rsc/User/IdleL6.png</file>
+        <file>rsc/User/IdleL7.png</file>
+        <file>rsc/User/IdleL8.png</file>
+        <file>rsc/User/IdleL9.png</file>
+        <file>rsc/User/IdleL10.png</file>
+        <file>rsc/User/IdleL11.png</file>
+        <file>rsc/User/JumpL.png</file>
+        <file>rsc/User/RunL1.png</file>
+        <file>rsc/User/RunL2.png</file>
+        <file>rsc/User/RunL3.png</file>
+        <file>rsc/User/RunL4.png</file>
+        <file>rsc/User/RunL5.png</file>
+        <file>rsc/User/RunL6.png</file>
+        <file>rsc/User/RunL7.png</file>
+        <file>rsc/User/RunL8.png</file>
+        <file>rsc/User/RunL9.png</file>
+        <file>rsc/User/RunL11.png</file>
+        <file>rsc/User/RunL12.png</file>
+        <file>rsc/User/RunL10.png</file>
     </qresource>
     <qresource prefix="/icon">
         <file>rsc/Menu/Buttons/Achievements.png</file>
@@ -83,7 +133,14 @@
         <file>rsc/Menu/Levels/49.png</file>
         <file>rsc/Menu/Levels/50.png</file>
     </qresource>
-    <qresource prefix="/craft"/>
+    <qresource prefix="/craft">
+        <file>rsc/Background/Float.png</file>
+        <file>rsc/Background/WallBrick.png</file>
+        <file>rsc/Background/WallGreen.png</file>
+        <file>rsc/Background/WallYellow.png</file>
+        <file>rsc/Background/Yellow.png</file>
+        <file>rsc/Background/Box.png</file>
+    </qresource>
     <qresource prefix="/background">
         <file>rsc/Background/background_yellow.png</file>
         <file>rsc/Background/Blue.png</file>
@@ -97,5 +154,14 @@
     </qresource>
     <qresource prefix="/text">
         <file>rsc/text/title.png</file>
+    </qresource>
+    <qresource prefix="/trap">
+        <file>rsc/Traps/Saw1.png</file>
+        <file>rsc/Traps/Saw2.png</file>
+        <file>rsc/Traps/Saw3.png</file>
+        <file>rsc/Traps/Stab.png</file>
+    </qresource>
+    <qresource prefix="/checkpoint">
+        <file>rsc/Items/Checkpoints/Checkpoint/Checkpoint NoFlag.png</file>
     </qresource>
 </RCC>

@@ -2,6 +2,7 @@
 #define LEVELSWINDOW_H
 
 #include <QMainWindow>
+#include "playscene.h"
 
 class LevelsWindow : public QMainWindow
 {
@@ -11,7 +12,7 @@ public:
 
     void paintEvent(QPaintEvent *);
 
-
+    PlayScene * playLevel = nullptr;
 
 signals:
     void return_to_homewindow();

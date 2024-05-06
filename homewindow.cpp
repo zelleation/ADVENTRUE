@@ -10,7 +10,57 @@ HomeWindow::HomeWindow(QWidget *parent)
 {
     ui->setupUi(this);
     this->setFixedSize(64*18,64*9);
-    this->setWindowIcon(QIcon(":/user/rsc/user/user_stand.png"));
+    this->setWindowIcon(QIcon(":/user/rsc/User/Idle1.png"));
+
+    this->timer = new QTimer(this);
+    this->timer2 = new QTimer(this);
+    timer->start(50);
+    for(int i = 1; i <= 11 ; i++)
+    {
+        QString str = QString(":/user/rsc/User/Run%1.png").arg(i);
+        this->pix_runner.load(str);
+    }
+    for(int i = 1; i <= 12 ; i++)
+    {
+        QString str = QString(":/user/rsc/User/Idle%1.png").arg(i);
+        this->pix_runner.load(str);
+    }
+    curr = 1;
+    loca = 1;
+    connect(this->timer,&QTimer::timeout,[=](){
+        QString str = QString(":/user/rsc/User/Run%1.png").arg(curr++);
+        this->pix_runner.load(str);
+        loca++;
+        if(curr>=12)
+        {
+            this->curr = 1;
+        }
+        if(loca >= 144)
+        {
+            timer->stop();
+            delete timer;
+            emit change();
+        }
+        emit changePix();
+    });
+    connect(this,&HomeWindow::changePix,[=](){
+        update();
+    });
+    connect(this,&HomeWindow::change,[=](){
+        timer2->start(50);
+    });
+    connect(this->timer2,&QTimer::timeout,[=](){
+        QString str = QString(":/user/rsc/User/Idle%1.png").arg(curr++);
+        this->pix_runner.load(str);
+        if(curr>=11)
+        {
+            this->curr = 1;
+        }
+        emit changePix2();
+    });
+    connect(this,&HomeWindow::changePix2,[=](){
+        update();
+    });
 
     levelsWindow = new LevelsWindow;
     connect(levelsWindow,&LevelsWindow::return_to_homewindow,this,[=](){
@@ -88,6 +138,8 @@ void HomeWindow::paintEvent(QPaintEvent *)
     QPixmap pix_img;
     pix_img.load(":/background/rsc/Background/HomeAnimation.png");
     painter.drawPixmap(64*4,64*3,pix_img);
+
+    painter.drawPixmap(265+loca*4,64*5+7,pix_runner);
 
 }
 

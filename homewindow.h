@@ -24,6 +24,16 @@ public:
 
     LevelsWindow * levelsWindow=nullptr;
 
+    QTimer* timer;
+    QTimer* timer2;
+    QPixmap pix_runner;
+    int curr;
+    int loca;
+signals:
+    void changePix();
+    void change();
+    void changePix2();
+
 private:
     Ui::HomeWindow *ui;
 };
