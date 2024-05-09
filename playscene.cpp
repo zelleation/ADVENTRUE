@@ -59,8 +59,13 @@ PlayScene::PlayScene(int index)
     });
 
     this->m_user = new User;
-    m_user->move(64*2,64*8);//角色初始化
-
+    m_user->setParent(this);
+    m_user->move(48*2,48*9+16);//角色初始化
+    for(int i = 0; i < 12; i++)
+    {
+        for(int j = 0; j < 24; j++)
+            this->m_user->currmap[i][j] = leveldata->m_map[levelIndex][i][j];
+    }
     connect(this->m_user->user_timer,&QTimer::timeout,this->m_user,&User::setUserPixLoad);
     connect(this->m_user->user_timer,&QTimer::timeout,[=](){
         this->m_user->curr++;
@@ -71,7 +76,7 @@ PlayScene::PlayScene(int index)
         update();
     });
     connect(this->m_user->user_timer,&QTimer::timeout,this->m_user,&User::userMove);
-    keysTimer = new QTimer(this);//键盘输入
+    keysTimer = new QTimer(this);
     connect(this->keysTimer,&QTimer::timeout,this,&PlayScene::keysSlot);
 }
 
@@ -82,22 +87,22 @@ void PlayScene::paintEvent(QPaintEvent *)
     this->pix_background.load(":/background/rsc/Background/background_yellow.png");
     painter.drawPixmap(0,0,pix_background);
 
-    for(int i = 0; i < 9 ; i++)
+    for(int i = 0; i < 12 ; i++)
     {
-        for (int j = 0; j < 18 ; j++)
+        for (int j = 0; j < 24 ; j++)
         {
             QString craftPath;
             switch (leveldata->m_map[this->levelIndex][i][j]) {
             case Nothing:
                 break;
             case Wall:
-                craftPath = ":/craft/rsc/Background/WallGreen.png";
+                craftPath = ":/background/rsc/Background/wall.png";
                 break;
             case Box:
-                craftPath = ":/craft/rsc/Background/Box.png";
+                craftPath = ":/background/rsc/Background/box.png";
                 break;
             case Trap:
-                craftPath = ":/trap/rsc/Traps/Stab.png";
+                craftPath = "";
                 break;
             case Fruit:
                 craftPath = "";
@@ -106,10 +111,10 @@ void PlayScene::paintEvent(QPaintEvent *)
                 craftPath = "";
                 break;
             case CheckPoint:
-                craftPath = ":/checkpoint/rsc/Items/Checkpoints/Checkpoint/Checkpoint NoFlag.png";
+                craftPath = "";
                 break;
             case Float:
-                craftPath = ":/craft/rsc/Background/Float.png";
+                craftPath = "";
                 break;
             default:
                 break;
@@ -118,17 +123,17 @@ void PlayScene::paintEvent(QPaintEvent *)
             if(leveldata->m_map[this->levelIndex][i][j] == 0)
                 continue;
             mapPix.load(craftPath);
-            painter.drawPixmap(j*64,i*64,mapPix);
+            painter.drawPixmap(j*48,i*48,mapPix);
         }
     }
 
     userPainter.drawPixmap(m_user->pos(),m_user->pix_user);
 }
-
 void PlayScene::keyPressEvent(QKeyEvent *e)
 {
     if(!e->isAutoRepeat())  //判断如果不是长按时自动触发的按下,就将key值加入容器
     {
+        if(e->key() == Qt::Key_W)qDebug()<<"key_W press";
         keys.append(e->key());
     }
     if(!keysTimer->isActive()) //如果定时器不在运行，就启动一下
@@ -140,6 +145,7 @@ void PlayScene::keyReleaseEvent(QKeyEvent* e)
 {
     if(!e->isAutoRepeat())
     {
+        qDebug()<<"keyrelease";
         //判断如果不是长按时自动触发的释放,就将key值从容器中删除
         keys.removeAll(e->key());
         if(e->key()==Qt::Key_W && !e->isAutoRepeat())
@@ -167,15 +173,8 @@ void PlayScene::keysSlot()
         switch (key)
         {
         case Qt::Key_W:
-            if( this->m_user->height > 128)
-            {
-                this->m_user->jump = false;
-                this->m_user->fall = true;
-            }
-            else
-            {
+            if(this->m_user->height<108)
                 this->m_user->jump = true;
-            }
             break;
         case Qt::Key_A:
             this->m_user->runleft = true;

@@ -12,18 +12,6 @@
 #include <QMap>
 #include <QVector>
 
-enum  MapEle
-{
-    Nothing,        //0
-    Wall,           //1
-    Box,            //2
-    Trap,           //3
-    Fruit,          //4
-    Monster,        //5
-    CheckPoint,     //6
-    Float,          //7
-};
-
 class PlayScene : public QMainWindow
 {
     Q_OBJECT
@@ -41,14 +29,14 @@ public:
     long long time = 0;
 
     QPixmap pix_background;
-    QLabel * labelScore;
-    QLabel * labelTime;
-    QTimer * timer;
-    QList<int> keys;
-    QTimer * keysTimer;
+    QLabel * labelScore = nullptr;
+    QLabel * labelTime = nullptr;
+    QTimer * timer = nullptr;
+    QList<int>keys;
+    QTimer * keysTimer = nullptr;
 
     User * m_user= nullptr;
-    MapData * leveldata;
+    MapData * leveldata = nullptr;
 signals:
     void return_to_levels();
 };

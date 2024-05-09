@@ -24,8 +24,8 @@ public:
 
     LevelsWindow * levelsWindow=nullptr;
 
-    QTimer* timer;
-    QTimer* timer2;
+    QTimer* timer = nullptr;
+    QTimer* timer2 = nullptr;
     QPixmap pix_runner;
     int curr;
     int loca;

@@ -55,7 +55,6 @@ LevelsWindow::LevelsWindow(QWidget *parent)
 
             level->move_down();
             level->move_up();
-
             playLevel = new PlayScene(i+1);
 
             QTimer::singleShot(360,this,[=](){
@@ -66,18 +65,12 @@ LevelsWindow::LevelsWindow(QWidget *parent)
             connect(playLevel,&PlayScene::return_to_levels,this,[=](){
                 QTimer::singleShot(360,this,[=](){
                     playLevel->close();
+                    if(this->playLevel != nullptr)playLevel->deleteLater();
                     this->show();
-
-                    delete this->playLevel->m_user;
-                    delete this->playLevel;
-                    this->playLevel = nullptr;
                 });
             });
         });
     }
-
-
-
 }
 
 void LevelsWindow::paintEvent(QPaintEvent *)

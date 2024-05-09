@@ -8,6 +8,18 @@
 #include <QVector>
 #include <QKeyEvent>
 
+enum  MapEle
+{
+    Nothing,        //0
+    Wall,           //1
+    Box,            //2
+    Trap,           //3
+    Fruit,          //4
+    Monster,        //5
+    CheckPoint,     //6
+    Float,          //7
+};
+
 class User: public QLabel
 {
     Q_OBJECT
@@ -16,11 +28,11 @@ public:
     void setUserPixLoad();
     void userMove();
 
-    QTimer * user_timer;
+    QTimer * user_timer = nullptr;
     QString curr_str;
     QPixmap pix_user;
+    int currmap[12][24];
     int blood;
-    int speed;
     int curr;
     int endframe;
     int height = 0;

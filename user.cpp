@@ -2,7 +2,6 @@
 
 User::User()
 {
-    speed = 4;
     blood = 10;
     user_timer = new QTimer;
     this->setPixmap(pix_user);
@@ -72,26 +71,39 @@ void User::setUserPixLoad()
 }
 void User::userMove()
 {
-    if(height>128)
+    qDebug()<<jump<<'-'<<fall;
+    if(height>108)
     {
         jump = false;
         fall = true;
     }
-    if(jump)
+    if(jump && (currmap[this->y()/48 - 12][(this->x()+16)/48] != Wall))
     {
         this->move(this->x(),this->y()-12);
         height += 12;
+        qDebug()<<"userjump";
     }
-    if(fall)
+    if(fall && height>0)
     {
-        this->move(this->x(),this->y()+12);
+        if(currmap[(this->y()+32+12)/48][(this->x()+16)/48] != Wall)
+            this->move(this->x(),this->y()+12);
+        else
+        {
+            fall = false;
+            this->move(this->x(),this->y()+12);
+            height = 0;
+        }
+        //qDebug()<<"usefall";
     }
-    if(runleft)
+    if(runleft && (currmap[this->y()/48][(this->x()-4)/48] != Wall))
     {
         this->move(this->x()-4,this->y());
+        //qDebug()<<"userrunleft";
     }
-    if(runright)
+    if(runright && (currmap[this->y()/48][(this->x()+4+32)/48] != Wall))
     {
         this->move(this->x()+4,this->y());
+        //qDebug()<<"userrunright";
     }
+
 }

@@ -134,12 +134,7 @@
         <file>rsc/Menu/Levels/50.png</file>
     </qresource>
     <qresource prefix="/craft">
-        <file>rsc/Background/Float.png</file>
-        <file>rsc/Background/WallBrick.png</file>
-        <file>rsc/Background/WallGreen.png</file>
-        <file>rsc/Background/WallYellow.png</file>
         <file>rsc/Background/Yellow.png</file>
-        <file>rsc/Background/Box.png</file>
     </qresource>
     <qresource prefix="/background">
         <file>rsc/Background/background_yellow.png</file>
@@ -151,16 +146,16 @@
         <file>rsc/Background/Pink.png</file>
         <file>rsc/Background/Purple.png</file>
         <file>rsc/Background/Yellow.png</file>
+        <file>rsc/Background/box.png</file>
+        <file>rsc/Background/brick.png</file>
+        <file>rsc/Background/wall.png</file>
+        <file>rsc/Background/wall2.png</file>
+        <file>rsc/Background/wall3.png</file>
     </qresource>
     <qresource prefix="/text">
         <file>rsc/text/title.png</file>
     </qresource>
-    <qresource prefix="/trap">
-        <file>rsc/Traps/Saw1.png</file>
-        <file>rsc/Traps/Saw2.png</file>
-        <file>rsc/Traps/Saw3.png</file>
-        <file>rsc/Traps/Stab.png</file>
-    </qresource>
+    <qresource prefix="/trap"/>
     <qresource prefix="/checkpoint">
         <file>rsc/Items/Checkpoints/Checkpoint/Checkpoint NoFlag.png</file>
     </qresource>

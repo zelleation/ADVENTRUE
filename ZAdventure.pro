@@ -15,7 +15,6 @@ SOURCES += \
     homewindow.cpp \
     mapdata.cpp \
     playscene.cpp \
-    trap.cpp \
     user.cpp
 
 HEADERS += \
@@ -24,7 +23,6 @@ HEADERS += \
     levelswindow.h \
     mapdata.h \
     playscene.h \
-    trap.h \
     user.h
 
 FORMS += \
