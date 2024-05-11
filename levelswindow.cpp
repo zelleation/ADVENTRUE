@@ -65,12 +65,15 @@ LevelsWindow::LevelsWindow(QWidget *parent)
             connect(playLevel,&PlayScene::return_to_levels,this,[=](){
                 QTimer::singleShot(360,this,[=](){
                     playLevel->close();
-                    if(this->playLevel != nullptr)playLevel->deleteLater();
                     this->show();
+                    playLevel = nullptr;
                 });
             });
         });
     }
+    connect(this->playLevel,&PlayScene::return_to_homewindow,[=](){
+        emit this->return_to_homewindow();
+    });
 }
 
 void LevelsWindow::paintEvent(QPaintEvent *)

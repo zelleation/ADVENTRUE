@@ -79,6 +79,12 @@ HomeWindow::HomeWindow(QWidget *parent)
         startBtn->move_down();
         startBtn->move_up();
 
+        QTimer::singleShot(360,this,[=](){
+            this->hide();
+            levelsWindow->playLevel = new PlayScene(1);
+            levelsWindow->playLevel->show();
+        });
+
     });
 
     ChoiceButton * levelsBtn = new ChoiceButton(":/icon/rsc/Menu/Buttons/Levels.png");

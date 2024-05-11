@@ -11,6 +11,8 @@
 #include <QList>
 #include <QMap>
 #include <QVector>
+#include <QKeyEvent>
+#include <QMessageBox>
 
 class PlayScene : public QMainWindow
 {
@@ -23,6 +25,8 @@ public:
     void keyPressEvent(QKeyEvent *e);
     void keyReleaseEvent(QKeyEvent *e);
     void keysSlot();
+    void loseGame();
+    void winGmae();
 
     int levelIndex;
     long long score = 0;
@@ -39,6 +43,7 @@ public:
     MapData * leveldata = nullptr;
 signals:
     void return_to_levels();
+    void return_to_homewindow();
 };
 
 #endif // PLAYSCENE_H

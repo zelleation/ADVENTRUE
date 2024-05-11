@@ -6,18 +6,20 @@
 #include <QPainter>
 #include <QTimer>
 #include <QVector>
-#include <QKeyEvent>
+#include <QPoint>
+#include "bullet.h"
 
 enum  MapEle
 {
     Nothing,        //0
     Wall,           //1
     Box,            //2
-    Trap,           //3
-    Fruit,          //4
-    Monster,        //5
-    CheckPoint,     //6
-    Float,          //7
+    Fruit,          //3
+    Monster,        //4
+    CheckPoint,     //5
+    Float,          //6
+    Trap1,          //7
+    Trap2,          //8
 };
 
 class User: public QLabel
@@ -27,15 +29,23 @@ public:
     User();
     void setUserPixLoad();
     void userMove();
+    void userFall();
+    void userbehit();
+    void userDie();
+    void userAttack();
+    void changeBlood();
 
     QTimer * user_timer = nullptr;
+    QTimer * user_behit = nullptr;
     QString curr_str;
     QPixmap pix_user;
+    Bullet * userbullet;
     int currmap[12][24];
-    int blood;
     int curr;
     int endframe;
     int height = 0;
+    int jumptime = 0;
+    int blood = 3;
     bool faceright = true;//左为0，右为1
     bool runleft = false;
     bool runright = false;
@@ -43,8 +53,10 @@ public:
     bool jump = false;
     bool attack = false;
     bool behit = false;
+    bool changeblood = false;
 
 signals:
+    void died();
 };
 
 #endif // USER_H

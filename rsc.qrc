@@ -155,7 +155,10 @@
     <qresource prefix="/text">
         <file>rsc/text/title.png</file>
     </qresource>
-    <qresource prefix="/trap"/>
+    <qresource prefix="/trap">
+        <file>rsc/Traps/Saw1.png</file>
+        <file>rsc/Traps/spiker.png</file>
+    </qresource>
     <qresource prefix="/checkpoint">
         <file>rsc/Items/Checkpoints/Checkpoint/Checkpoint NoFlag.png</file>
     </qresource>

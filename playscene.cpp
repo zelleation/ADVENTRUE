@@ -1,7 +1,8 @@
 #include "playscene.h"
 #include <QDebug>
 #include "choicebutton.h"
-#include <QPropertyAnimation>
+#include <QFrame>
+#include <QDialog>
 
 PlayScene::PlayScene(int index)
 {
@@ -65,6 +66,7 @@ PlayScene::PlayScene(int index)
     {
         for(int j = 0; j < 24; j++)
             this->m_user->currmap[i][j] = leveldata->m_map[levelIndex][i][j];
+
     }
     connect(this->m_user->user_timer,&QTimer::timeout,this->m_user,&User::setUserPixLoad);
     connect(this->m_user->user_timer,&QTimer::timeout,[=](){
@@ -76,6 +78,7 @@ PlayScene::PlayScene(int index)
         update();
     });
     connect(this->m_user->user_timer,&QTimer::timeout,this->m_user,&User::userMove);
+    connect(this->m_user,&User::died,this,&PlayScene::loseGame);
     keysTimer = new QTimer(this);
     connect(this->keysTimer,&QTimer::timeout,this,&PlayScene::keysSlot);
 }
@@ -92,7 +95,7 @@ void PlayScene::paintEvent(QPaintEvent *)
         for (int j = 0; j < 24 ; j++)
         {
             QString craftPath;
-            switch (leveldata->m_map[this->levelIndex][i][j]) {
+            switch (m_user->currmap[i][j]) {
             case Nothing:
                 break;
             case Wall:
@@ -101,7 +104,10 @@ void PlayScene::paintEvent(QPaintEvent *)
             case Box:
                 craftPath = ":/background/rsc/Background/box.png";
                 break;
-            case Trap:
+            case Trap1:
+                craftPath = ":/trap/rsc/Traps/spiker.png";
+                break;
+            case Trap2:
                 craftPath = "";
                 break;
             case Fruit:
@@ -126,14 +132,13 @@ void PlayScene::paintEvent(QPaintEvent *)
             painter.drawPixmap(j*48,i*48,mapPix);
         }
     }
-
     userPainter.drawPixmap(m_user->pos(),m_user->pix_user);
 }
 void PlayScene::keyPressEvent(QKeyEvent *e)
 {
     if(!e->isAutoRepeat())  //判断如果不是长按时自动触发的按下,就将key值加入容器
     {
-        if(e->key() == Qt::Key_W)qDebug()<<"key_W press";
+        qDebug()<<"keypress"<<e->key();
         keys.append(e->key());
     }
     if(!keysTimer->isActive()) //如果定时器不在运行，就启动一下
@@ -145,8 +150,7 @@ void PlayScene::keyReleaseEvent(QKeyEvent* e)
 {
     if(!e->isAutoRepeat())
     {
-        qDebug()<<"keyrelease";
-        //判断如果不是长按时自动触发的释放,就将key值从容器中删除
+        qDebug()<<"keyrelease"<<e->key();
         keys.removeAll(e->key());
         if(e->key()==Qt::Key_W && !e->isAutoRepeat())
         {
@@ -173,7 +177,7 @@ void PlayScene::keysSlot()
         switch (key)
         {
         case Qt::Key_W:
-            if(this->m_user->height<108)
+            if(this->m_user->jumptime < 12)
                 this->m_user->jump = true;
             break;
         case Qt::Key_A:
@@ -182,9 +186,38 @@ void PlayScene::keysSlot()
         case Qt::Key_D:
             this->m_user->runright = true;
             break;
+        case Qt::Key_Space:
+            if(this->m_user->userbullet!=nullptr)
+                this->m_user->attack = true;
+            break;
         default:
             break;
         }
     }
+    //qDebug()<<m_user->jump;
 }
+void PlayScene::loseGame()
+{
+    qDebug()<<"you lose";
+    QMessageBox * losemsg = new QMessageBox(this);
+    QFont f("Arial",30);
+    losemsg->setFont(f);
+    losemsg->setText("YOU LOSE!");
+    losemsg->setIconPixmap(QPixmap(":/user/rsc/User/Idle1.png"));
+    losemsg->setWindowFlags(Qt::FramelessWindowHint | Qt::Tool); // 无边框设置
+    losemsg->setAttribute(Qt::WA_TranslucentBackground);// 背景透明设置
+    losemsg->addButton(QMessageBox::Yes);
+    losemsg->setButtonText(QDialogButtonBox::Yes,"Return");
+    int ret = losemsg->exec();
+    switch(ret)
+    {
+    case QMessageBox::Yes:
+        delete this->m_user;
+        emit this->return_to_levels();
+        break;
+    }
+}
+void PlayScene::winGmae()
+{
 
+}
