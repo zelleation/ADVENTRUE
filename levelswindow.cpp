@@ -6,10 +6,11 @@
 LevelsWindow::LevelsWindow(QWidget *parent)
     : QMainWindow{parent}
 {
-
+    qDebug()<<"LevelsWindow::LevelsWindow(QWidget *parent)";
     this->setWindowIcon(QPixmap(":/user/rsc/User/Idle1.png"));
     this->setFixedSize(64*18,64*9);
     this->setWindowTitle("choose level");
+    this->setAttribute(Qt::WA_DeleteOnClose);
 
     ChoiceButton * soundBtn = new ChoiceButton(":/icon/rsc/Menu/Buttons/Volume.png",":/icon/rsc/Menu/Buttons/No_volume.png");
     soundBtn->setParent(this);
@@ -56,28 +57,45 @@ LevelsWindow::LevelsWindow(QWidget *parent)
             level->move_down();
             level->move_up();
             playLevel = new PlayScene(i+1);
+            connect(playLevel,&PlayScene::return_to_levels,this,[=](){
+                qDebug()<<"emit return to levels";
+                playLevel->close();
+                this->show();
+                //playLevel->deleteLater();
+                playLevel = nullptr;
 
+            });
+            connect(this->playLevel,&PlayScene::return_to_homewindow,[=](){
+                emit this->return_to_homewindow();
+            });
+            connect(this->playLevel,&PlayScene::next_level,[=](){
+                qDebug()<<"emit nextlevel";
+                int ret = playLevel->levelIndex;
+                playLevel->close();
+                delete playLevel;
+                playLevel = nullptr;
+                playLevel = new PlayScene(++ret);
+                playLevel->show();
+            });
             QTimer::singleShot(360,this,[=](){
                 this->hide();
                 this->playLevel->show();
             });
-
             connect(playLevel,&PlayScene::return_to_levels,this,[=](){
                 QTimer::singleShot(360,this,[=](){
                     playLevel->close();
-                    this->show();
                     playLevel = nullptr;
+
                 });
             });
         });
     }
-    connect(this->playLevel,&PlayScene::return_to_homewindow,[=](){
-        emit this->return_to_homewindow();
-    });
+
 }
 
 void LevelsWindow::paintEvent(QPaintEvent *)
 {
+    qDebug()<<"void LevelsWindow::paintEvent(QPaintEvent *)";
     QPainter painter(this);
     QPixmap pix;
     pix.load(":/background/rsc/Background/background_yellow.png");

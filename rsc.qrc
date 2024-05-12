@@ -135,6 +135,8 @@
     </qresource>
     <qresource prefix="/craft">
         <file>rsc/Background/Yellow.png</file>
+        <file>rsc/Items/blood.png</file>
+        <file>rsc/Items/fruit1.png</file>
     </qresource>
     <qresource prefix="/background">
         <file>rsc/Background/background_yellow.png</file>
@@ -156,10 +158,43 @@
         <file>rsc/text/title.png</file>
     </qresource>
     <qresource prefix="/trap">
-        <file>rsc/Traps/Saw1.png</file>
         <file>rsc/Traps/spiker.png</file>
+        <file>rsc/Traps/trap1.png</file>
+        <file>rsc/Traps/trap2.png</file>
+        <file>rsc/Traps/trap3.png</file>
+        <file>rsc/Traps/trap4.png</file>
+        <file>rsc/Traps/trap5.png</file>
+        <file>rsc/Traps/trap6.png</file>
+        <file>rsc/Traps/trap7.png</file>
+        <file>rsc/Traps/trap8.png</file>
     </qresource>
     <qresource prefix="/checkpoint">
         <file>rsc/Items/Checkpoints/Checkpoint/Checkpoint NoFlag.png</file>
+        <file>rsc/Items/Checkpoints/Checkpoint/checkpoint.png</file>
+        <file>rsc/Items/Checkpoints/Checkpoint/checkpoint1.png</file>
+        <file>rsc/Items/Checkpoints/Checkpoint/checkpoint2.png</file>
+        <file>rsc/Items/Checkpoints/Checkpoint/checkpoint3.png</file>
+        <file>rsc/Items/Checkpoints/Checkpoint/checkpoint4.png</file>
+        <file>rsc/Items/Checkpoints/Checkpoint/checkpoint5.png</file>
+        <file>rsc/Items/Checkpoints/Checkpoint/checkpoint6.png</file>
+        <file>rsc/Items/Checkpoints/Checkpoint/checkpoint7.png</file>
+        <file>rsc/Items/Checkpoints/Checkpoint/checkpoint8.png</file>
+        <file>rsc/Items/Checkpoints/Checkpoint/checkpoint9.png</file>
+        <file>rsc/Items/Checkpoints/Checkpoint/checkpoint10.png</file>
+        <file>rsc/Items/Checkpoints/Checkpoint/checkpoint11.png</file>
+        <file>rsc/Items/Checkpoints/Checkpoint/checkpoint12.png</file>
+        <file>rsc/Items/Checkpoints/Checkpoint/checkpoint13.png</file>
+        <file>rsc/Items/Checkpoints/Checkpoint/checkpoint14.png</file>
+        <file>rsc/Items/Checkpoints/Checkpoint/checkpoint15.png</file>
+        <file>rsc/Items/Checkpoints/Checkpoint/checkpoint16.png</file>
+        <file>rsc/Items/Checkpoints/Checkpoint/checkpoint17.png</file>
+        <file>rsc/Items/Checkpoints/Checkpoint/checkpoint18.png</file>
+        <file>rsc/Items/Checkpoints/Checkpoint/checkpoint19.png</file>
+        <file>rsc/Items/Checkpoints/Checkpoint/checkpoint20.png</file>
+        <file>rsc/Items/Checkpoints/Checkpoint/checkpoint21.png</file>
+        <file>rsc/Items/Checkpoints/Checkpoint/checkpoint22.png</file>
+        <file>rsc/Items/Checkpoints/Checkpoint/checkpoint24.png</file>
+        <file>rsc/Items/Checkpoints/Checkpoint/checkpoint26.png</file>
+        <file>rsc/Items/Checkpoints/Checkpoint/checkpoint23.png</file>
     </qresource>
 </RCC>

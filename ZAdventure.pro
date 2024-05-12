@@ -9,8 +9,8 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    bullet.cpp \
     choicebutton.cpp \
+    fruit.cpp \
     levelswindow.cpp \
     main.cpp \
     homewindow.cpp \
@@ -19,8 +19,8 @@ SOURCES += \
     user.cpp
 
 HEADERS += \
-    bullet.h \
     choicebutton.h \
+    fruit.h \
     homewindow.h \
     levelswindow.h \
     mapdata.h \

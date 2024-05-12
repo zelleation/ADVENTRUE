@@ -7,7 +7,6 @@
 #include <QTimer>
 #include <QVector>
 #include <QPoint>
-#include "bullet.h"
 
 enum  MapEle
 {
@@ -15,11 +14,10 @@ enum  MapEle
     Wall,           //1
     Box,            //2
     Fruit,          //3
-    Monster,        //4
-    CheckPoint,     //5
-    Float,          //6
-    Trap1,          //7
-    Trap2,          //8
+    CheckPoint,     //4
+    Float,          //5
+    Trap1,          //6
+    Trap2,          //7
 };
 
 class User: public QLabel
@@ -34,14 +32,16 @@ public:
     void userDie();
     void userAttack();
     void changeBlood();
+    void winGame();
 
     QTimer * user_timer = nullptr;
     QTimer * user_behit = nullptr;
     QString curr_str;
+    QString checkpointpath = ":/checkpoint/rsc/Items/Checkpoints/Checkpoint/Checkpoint NoFlag.png";
     QPixmap pix_user;
-    Bullet * userbullet;
     int currmap[12][24];
     int curr;
+    int currcheckpoint = 0;
     int endframe;
     int height = 0;
     int jumptime = 0;
@@ -51,12 +51,12 @@ public:
     bool runright = false;
     bool fall = false;
     bool jump = false;
-    bool attack = false;
     bool behit = false;
     bool changeblood = false;
 
 signals:
     void died();
+    void win();
 };
 
 #endif // USER_H

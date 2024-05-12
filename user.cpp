@@ -2,6 +2,8 @@
 
 User::User()
 {
+    qDebug()<<"User::User()";
+    this->setAttribute(Qt::WA_DeleteOnClose);
     user_timer = new QTimer(this->parent());
     user_behit = new QTimer(this->parent());
     this->setPixmap(pix_user);
@@ -12,9 +14,11 @@ User::User()
     connect(this->user_timer,&QTimer::timeout,this,&User::userFall);
     connect(this->user_timer,&QTimer::timeout,this,&User::userbehit);
     connect(this->user_behit,&QTimer::timeout,this,&User::changeBlood);
+    connect(this->user_timer,&QTimer::timeout,this,&User::winGame);
 }
 void User::setUserPixLoad()
 {
+    qDebug()<<"void User::setUserPixLoad()";
     if(changeblood)
     {
         if(faceright)
@@ -75,7 +79,7 @@ void User::setUserPixLoad()
 }
 void User::userMove()
 {
-    //qDebug()<<jump;
+    qDebug()<<"void User::userMove()";
     if(jumptime >= 12)
     {
         jump = false;
@@ -104,6 +108,7 @@ void User::userMove()
 }
 void User::userFall()
 {
+    qDebug()<<"void User::userFall()";
     if(!jump && currmap[(this->y()+32)/48][(this->x()+31)/48] != Wall&& currmap[(this->y()+32)/48][(this->x()+1)/48] != Wall)
     {
         fall = true;
@@ -115,57 +120,32 @@ void User::userFall()
         jumptime = 0;
     }
 }
-void User::userAttack()
-{
-    if(attack && this->userbullet == nullptr)
-    {
-        userbullet = new Bullet(this->x(),this->y(),faceright);
-    }
-    else if(!attack && this->userbullet != nullptr)
-    {
-        this->userbullet->deleteLater();
-        this->userbullet = nullptr;
-    }
-    else if(attack && this->userbullet != nullptr)
-    {
-        if(userbullet->faceright)
-            userbullet->move(userbullet->x()+16,userbullet->y());
-        else
-            userbullet->move(userbullet->x()-16,userbullet->y());
-    }
-    if(this->userbullet != nullptr)
-    {
-        if(userbullet->x()<0 || userbullet->x()+16>1152)
-        {
-            attack = false;
-            this->userbullet->deleteLater();
-            this->userbullet = nullptr;
-        }
-        else if(currmap[userbullet->mx][userbullet->my] == Monster)
-        {
-            attack = false;
-            this->userbullet->deleteLater();
-            this->userbullet = nullptr;
-            currmap[userbullet->mx/48][userbullet->my/48] = Nothing;
-        }
-    }
-}
+
 void User::userbehit()
 {
-    qDebug()<<currmap[(this->y()+31)/48][(this->x()+32)/48]<<"  "<<blood<<"behit"<<behit;
-    if(currmap[(this->y()+31)/48][(this->x()+32)/48] == Trap1 || currmap[(this->y()+31)/48][this->x()/48] == Trap1 )
+    qDebug()<<"void User::userbehit()";
+    if(blood <= 0 || this->x() > 1184 || this->y() > 608)
+    {
+        blood = 0;
+        qDebug()<<"user died";
+        emit this->died();
+    }
+    if(currmap[(this->y()+31)/48][(this->x()+28)/48] == Trap1 || currmap[(this->y()+31)/48][this->x()+4/48] == Trap1 )
     {
         if((this->y()+31)%48 > 40)
+        {
             behit = true;
+        }
     }
     else
     {
         behit = false;
     }
-    if(currmap[(this->y()+32)/48][(this->x()+32)/48] == Trap2 || currmap[(this->y()+32)/48][this->x()/48] == Trap2 || currmap[this->y()/48][(this->x()+32)/48] == Trap2 || currmap[this->y()/48][this->x()/48] == Trap2 )
+    if(currmap[(this->y()+20)/48][(this->x()+20)/48] == Trap2 || currmap[(this->y()+20)/48][(this->x()+12)/48] == Trap2 || currmap[(this->y()+12)/48][(this->x()+20)/48] == Trap2 || currmap[(this->y()+12)/48][(this->x()+12)/48] == Trap2 )
+    {
         behit = true;
-    if(currmap[(this->y()+32)/48][(this->x()+32)/48] == Monster || currmap[(this->y()+32)/48][this->x()/48] == Monster || currmap[this->y()/48][(this->x()+32)/48] == Monster || currmap[this->y()/48][this->x()/48] == Monster )
-        behit = true;
+        qDebug()<<currmap[this->y()][this->x()];
+    }
 
 
     if(behit && !this->user_behit->isActive())
@@ -179,17 +159,27 @@ void User::userbehit()
         changeblood = false;
     }
 
-
-    if(blood <= 0)
-    {
-        emit this->died();
-        qDebug()<<"user died";
-    }
 }
 void User::changeBlood()
 {
+    qDebug()<<"void User::changeBlood()";
     blood--;
     changeblood = true;
     endframe = 7;
     this->curr = 1;
+}
+void User::winGame()
+{
+    qDebug()<<"void User::winGame()";
+    if(currmap[(this->y()+31)/48][(this->x()+32)/48] == CheckPoint || this->currcheckpoint > 0)
+    {
+        qDebug()<<"start win animation"<<currcheckpoint;
+        currcheckpoint++;
+        checkpointpath = QString(":/checkpoint/rsc/Items/Checkpoints/Checkpoint/checkpoint%1.png").arg(currcheckpoint);
+    }
+    if(this->currcheckpoint >= 26)
+    {
+        qDebug()<<"win";
+        emit this->win();
+    }
 }

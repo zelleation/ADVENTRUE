@@ -82,6 +82,8 @@ HomeWindow::HomeWindow(QWidget *parent)
         QTimer::singleShot(360,this,[=](){
             this->hide();
             levelsWindow->playLevel = new PlayScene(1);
+            levelsWindow->show();
+            levelsWindow->hide();
             levelsWindow->playLevel->show();
         });
 
@@ -146,6 +148,7 @@ void HomeWindow::paintEvent(QPaintEvent *)
     painter.drawPixmap(64*4,64*3,pix_img);
 
     painter.drawPixmap(265+loca*4,64*5+7,pix_runner);
+    //qDebug()<<265+loca*4;
 
 }
 
