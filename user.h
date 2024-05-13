@@ -7,6 +7,7 @@
 #include <QTimer>
 #include <QVector>
 #include <QPoint>
+#include "mapdata.h"
 
 enum  MapEle
 {
@@ -24,7 +25,7 @@ class User: public QLabel
 {
     Q_OBJECT
 public:
-    User();
+    User(int index);
     void setUserPixLoad();
     void userMove();
     void userFall();
@@ -39,6 +40,7 @@ public:
     QString curr_str;
     QString checkpointpath = ":/checkpoint/rsc/Items/Checkpoints/Checkpoint/Checkpoint NoFlag.png";
     QPixmap pix_user;
+    MapData * levelmap;
     int currmap[12][24];
     int curr;
     int currcheckpoint = 0;

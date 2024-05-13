@@ -7,7 +7,6 @@
 PlayScene::PlayScene(int index)
 {
     qDebug()<<"PlayScene::PlayScene(int index)";
-    leveldata = new MapData(this);
     this->levelIndex = index;
     qDebug()<<"enter level "<<index;
 
@@ -63,7 +62,7 @@ PlayScene::PlayScene(int index)
         qDebug()<<"emit this->return_to_levels();";
     });
 
-    this->m_user = new User;
+    this->m_user = new User(levelIndex);
     m_user->setParent(this);
     m_user->move(48*2,48*9+16);//角色初始化
 
@@ -71,13 +70,13 @@ PlayScene::PlayScene(int index)
     {
         for(int j = 0; j < 24; j++)
         {
-            this->m_user->currmap[i][j] = leveldata->m_map[levelIndex][i][j];
             if(this->m_user->currmap[i][j] == Fruit)
             {
                 frunum++;
             }
         }
     }
+
     fru = new Fruits*[frunum];
     int pos = 0;
     for(int i = 0; i < 12; i++)
@@ -173,8 +172,6 @@ void PlayScene::paintEvent(QPaintEvent *)
 }
 void PlayScene::keyPressEvent(QKeyEvent *e)
 {
-    if(keysTimer == nullptr)
-        return;
     if(!e->isAutoRepeat())  //判断如果不是长按时自动触发的按下,就将key值加入容器
     {
         qDebug()<<"keypress"<<e->key();
@@ -187,10 +184,6 @@ void PlayScene::keyPressEvent(QKeyEvent *e)
 }
 void PlayScene::keyReleaseEvent(QKeyEvent* e)
 {
-    if(keysTimer == nullptr)
-        return;
-    if(m_user == nullptr)
-        return;
     if(!e->isAutoRepeat())
     {
         qDebug()<<"keyrelease"<<e->key();
@@ -270,19 +263,19 @@ void PlayScene::winGame()
     qDebug()<<"void PlayScene::winGame()";
     if(m_user == nullptr)
         return;
-    QMessageBox * losemsg = new QMessageBox(this);
+    QMessageBox * winmsg = new QMessageBox(this);
     QFont f("Arial",20);
-    losemsg->setFont(f);
-    losemsg->setText("YOU WIN!");
-    losemsg->setIconPixmap(QPixmap(":/user/rsc/User/Idle1.png"));
-    losemsg->setWindowFlags(Qt::FramelessWindowHint | Qt::Tool); // 无边框设置
-    losemsg->setAttribute(Qt::WA_TranslucentBackground);// 背景透明设置
-    QPushButton * back = losemsg->addButton(QMessageBox::Yes);
+    winmsg->setFont(f);
+    winmsg->setText("YOU WIN!");
+    winmsg->setIconPixmap(QPixmap(":/user/rsc/User/Idle1.png"));
+    winmsg->setWindowFlags(Qt::FramelessWindowHint | Qt::Tool); // 无边框设置
+    winmsg->setAttribute(Qt::WA_TranslucentBackground);// 背景透明设置
+    QPushButton * back = winmsg->addButton(QMessageBox::Yes);
     back->setStyleSheet("background-color:white;width:55px;height:25px");
     back->setText("NEXT");
     back->move(480,512);
-    losemsg->exec();
-    losemsg->close();
+    winmsg->exec();
+    winmsg->close();
     while(frunum--)
     {
         fru[frunum]->u = nullptr;

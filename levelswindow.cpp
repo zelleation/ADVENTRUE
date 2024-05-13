@@ -88,6 +88,7 @@ LevelsWindow::LevelsWindow(QWidget *parent)
 
                 });
             });
+            playLevel->show();
         });
     }
 

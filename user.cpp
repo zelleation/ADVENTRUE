@@ -1,11 +1,19 @@
 #include "user.h"
 
-User::User()
+User::User(int levelIndex)
 {
     qDebug()<<"User::User()";
-    this->setAttribute(Qt::WA_DeleteOnClose);
+    //this->setAttribute(Qt::WA_DeleteOnClose);
     user_timer = new QTimer(this->parent());
     user_behit = new QTimer(this->parent());
+    levelmap = new MapData(this);
+    for(int i = 0; i < 12; i++)
+    {
+        for(int j = 0; j < 24; j++)
+        {
+            this->currmap[i][j] = levelmap->m_map[levelIndex][i][j];
+        }
+    }
     this->setPixmap(pix_user);
     this->setFixedSize(32,32);
     curr = 1;
@@ -130,11 +138,12 @@ void User::userbehit()
         qDebug()<<"user died";
         emit this->died();
     }
-    if(currmap[(this->y()+31)/48][(this->x()+28)/48] == Trap1 || currmap[(this->y()+31)/48][this->x()+4/48] == Trap1 )
+    if(currmap[(this->y()+30)/48][(this->x()+16)/48] == Trap1 )
     {
-        if((this->y()+31)%48 > 40)
+        if((this->y()+30)%48 > 40)
         {
             behit = true;
+            qDebug()<<"Trap1"<< currmap[(this->y()+30)/48][(this->x()+30)/48];
         }
     }
     else
@@ -144,6 +153,7 @@ void User::userbehit()
     if(currmap[(this->y()+20)/48][(this->x()+20)/48] == Trap2 || currmap[(this->y()+20)/48][(this->x()+12)/48] == Trap2 || currmap[(this->y()+12)/48][(this->x()+20)/48] == Trap2 || currmap[(this->y()+12)/48][(this->x()+12)/48] == Trap2 )
     {
         behit = true;
+        qDebug()<<"Trap2";
         qDebug()<<currmap[this->y()][this->x()];
     }
 
